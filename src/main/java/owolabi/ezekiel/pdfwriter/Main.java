@@ -16,30 +16,36 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-      String path = System.getProperty("user.home") + "//Desktop//FirsrPDF.pdf";
-      String imagePath = "/Users/tobilobaowolabi/Desktop/Professional Documents/clear signature copy.jpg";
-      PdfWriter pdfWriter = new PdfWriter(path);
+  public static final String abrushow = "fonts//Abrushow.ttf";
+  public static final String reallyFree = "fonts//ReallyFree.ttf";
+  public static void main(String[] args) throws IOException {
+    String path = System.getProperty("user.home") + "//Desktop//FirsrPDF.pdf";
+    String imagePath = "/Users/tobilobaowolabi/Desktop/Professional Documents/clear signature copy.jpg";
+    PdfWriter pdfWriter = new PdfWriter(path);
 
-      PdfDocument pdfDocument = new PdfDocument(pdfWriter);
-      pdfDocument.addNewPage();
+    PdfDocument pdfDocument = new PdfDocument(pdfWriter);
+    pdfDocument.addNewPage();
 
-      Document document = new Document(pdfDocument);
+    Document document = new Document(pdfDocument);
 
-      PdfFont tnrFont = PdfFontFactory.createFont(FontConstants.TIMES_ROMAN);
-      PdfFont boldFont = PdfFontFactory.createFont(FontConstants.TIMES_BOLD);
+    PdfFont tnrFont = PdfFontFactory.createFont(FontConstants.TIMES_ROMAN);
+    PdfFont boldFont = PdfFontFactory.createFont(FontConstants.TIMES_BOLD);
+    PdfFont abrushowFont = PdfFontFactory.createFont(abrushow, true);
+    PdfFont reallyFreeFont = PdfFontFactory.createFont(reallyFree, true);
 
-      Text text1 = new Text("You are a nice").setFont(tnrFont);
-      Text text2 = new Text(" person").setFont(boldFont);
+    Text text1 = new Text("Times New Roman(Normal)\n").setFont(tnrFont);
+    Text text2 = new Text("Times New Roman(Bold)\n").setFont(boldFont);
+    Text text3 = new Text("Abrushow Font(Normal)\n").setFont(abrushowFont);
+    Text text4 = new Text("ReallyFree Font(Normal)\n").setFont(reallyFreeFont);
 
-      Paragraph paragraph = new Paragraph().add(text1).add(text2);
+    Paragraph paragraph = new Paragraph().add(text1).add(text2).add(text3).add(text4);
 
 
-      document = PdfUtils.addParagraph(document, paragraph);
-      document = PdfUtils.addImage(document, imagePath);
-      document = PdfUtils.addList(document);
-      document.close();
+    document = PdfUtils.addParagraph(document, paragraph);
+    document = PdfUtils.addImage(document, imagePath);
+    document = PdfUtils.addList(document);
+    document.close();
 
-      System.out.println("Pdf generated");
+    System.out.println("Pdf generated");
   }
 }
