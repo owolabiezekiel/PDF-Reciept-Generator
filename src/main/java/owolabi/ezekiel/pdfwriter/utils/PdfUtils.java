@@ -10,9 +10,7 @@ import com.itextpdf.layout.element.Paragraph;
 import java.net.MalformedURLException;
 
 public class PdfUtils {
-  public static Document addParagraph(Document document){
-    String paragraphString = "Lorem Ipsum";
-    Paragraph paragraph = new Paragraph(paragraphString);
+  public static Document addParagraph(Document document, Paragraph paragraph){
     document.add(paragraph);
     return document;
   }
