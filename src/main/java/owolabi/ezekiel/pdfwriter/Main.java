@@ -1,5 +1,6 @@
 package owolabi.ezekiel.pdfwriter;
 
+import com.google.zxing.WriterException;
 import com.itextpdf.io.font.FontConstants;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
@@ -8,17 +9,25 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Text;
+import owolabi.ezekiel.pdfwriter.models.UserInfo;
 import owolabi.ezekiel.pdfwriter.utils.PdfUtils;
 
-import java.awt.*;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.MalformedURLException;
+import java.util.ArrayList;
 
 public class Main {
   public static final String abrushow = "fonts//Abrushow.ttf";
   public static final String reallyFree = "fonts//ReallyFree.ttf";
-  public static void main(String[] args) throws IOException {
+  public static final String loremIpsum = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the " +
+      "industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. " +
+      "It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the " +
+      "1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker " +
+      "including versions of Lorem Ipsum.";
+  public static void main(String[] args) throws IOException, WriterException {
+    ArrayList<UserInfo> userInfoArrayList = new ArrayList<>();
+    for(UserInfo userInfo : userInfoArrayList){
+      PdfUtils.generateHaceyPdfForUser(userInfo);
+    }
     String path = System.getProperty("user.home") + "//Desktop//FirsrPDF.pdf";
     String imagePath = "/Users/tobilobaowolabi/Desktop/Professional Documents/clear signature copy.jpg";
     PdfWriter pdfWriter = new PdfWriter(path);
@@ -44,6 +53,8 @@ public class Main {
     document = PdfUtils.addParagraph(document, paragraph);
     document = PdfUtils.addImage(document, imagePath);
     document = PdfUtils.addList(document);
+    document = PdfUtils.addBarcode(pdfDocument, document, loremIpsum);
+
     document.close();
 
     System.out.println("Pdf generated");
